@@ -1,0 +1,16 @@
+.side-nav__navigation  {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.side-nav--collapsed {
+  width: 16rem;
+  transform: translateX(-16rem);
+  -webkit-transform: translateX(-16rem);
+}
+
+.header~.side-nav {
+  top: 3rem;
+  height: calc(100% - 48px)
+}
