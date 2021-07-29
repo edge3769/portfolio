@@ -34,9 +34,15 @@ body>:not(aside) a:active {
 }
 
 footer {
+    display: flex;
+    flex-direction: row;
     width: 100%;
     background: rgb(10, 10, 10);
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
+}
+
+footer p {
+    margin: .37rem;
 }
