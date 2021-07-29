@@ -1,0 +1,10 @@
+.grid {
+  display: grid;
+  gap: .1rem;
+  grid-template-rows: repeat(autofill, minmax(200px, 1fr));
+  grid-template-columns: masonry;
+}
+
+.grid-item {
+  
+}

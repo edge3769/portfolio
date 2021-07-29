@@ -1,94 +1,39 @@
+@import url('navbar.css');
+@import url('grid.css');
+
 body {
-  background-color: black;
+    background-color: black;
 }
 
-* {
-  color: white;
-}
+/* * {
+    color: white;
+} */
 
-.side-nav {
-  position: fixed;
-  z-index: 8000;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  overflow: hidden;
-  width: 3rem;
-  max-width: 16rem;
-  background-color: #fff;
-  color: #525252;
-  transition: width .11s cubic-bezier(0.2, 0, 1, 0.9);
-  will-change: width
-}
-
-.side-nav--ux {
-  top: 3rem;
-  width: 16rem;
-}
-
-.side-nav--hidden {
-  width: 0
-}
-
-.sid-nav__navigation {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-}
-
-.side-nav__items {
-  overflow: hidden;
-  flex: 1 1 0%;
-  padding: 1rem 0 0;
-}
-
-.side-nav--ux .side-nav__items { /* why */
-  overflow-y: auto;
-}
-
-.side-nav__item { 
-  overflow: hidden;
-  width: auto;
-  height: auto;
-}
-
-.side-nav--ux .side-nav__item {
-  width: auto;
-  height: auto;
+body {
+    background-color: black;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
-a:visited {
-  color: white;
+/* a:visited {
+    color: white;
+} */
+
+p, h1, h2, h3 {
+    color: white;
+}
+
+body>:not(aside) a:visited {
+    color: white;
+}
+
+body>:not(aside) a:active {
+    color: white;
 }
 
 footer {
-  position: absolute;
-  bottom: 0%;
-}
-
-@media(max-width: 65.98rem) {
-  side-nav--ux {
-      width: 0
-  }
-}
-
-.side-nav__navigation  {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-}
-
-.side-nav--collapsed {
-  width: 16rem;
-  transform: translateX(-16rem);
-  -webkit-transform: translateX(-16rem);
-}
-
-.header~.side-nav {
-  top: 3rem;
-  height: calc(100% - 48px)
+    position: absolute;
+    bottom: 0;
 }
