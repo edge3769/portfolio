@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='css/all.css'>
     <link rel='stylesheet' href='css/index.css'>
     <title>Document</title>
 </head>
 <body>
-    <nav class='side-nav__navigation side-nav side-nav--ux'>
+    <!-- <nav class='side-nav__navigation side-nav side-nav--ux'>
         <ul class='side-nav__items'>
             <li class='side-nav__item'>
                 <a aria-current='page' class='side-nav__link side-nav__link--current' href='index.html'>
@@ -27,10 +28,96 @@
                 <a href='contact.html'>Contact</a>
             </li>
         </ul>
-    </nav>
+    </nav> -->
+    
     <p>Hi, I'm EdwardGold</p>
+
+    <button id='authorize_button' style="display: none;">Authorize</button>
+    <button id='signout_button' style="display: none;">Sign Out</button>
+
+    <pre id='content' style="white-space: pre-wrap;"></pre>
+
     <footer>
         <p><a href='https://github.com/edge3769'>Github</a></p>
     </footer>
+
+    <script>
+        let CLIENT_ID = '988027930966-arv9hfb7tr5e7vnih7ggdifavra7grjl.apps.googleusercontent.com';
+
+        let API_KEY = 'AIzaSyAb_WaA31j72FHfrTT4HMV34TDRd1hQH6w';
+
+        let DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'];
+
+        let SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+
+        function handleClientLoad() {
+            gapi.load('client:auth2', initClient)
+            }
+
+        function initClient() {
+            gapi.client.init({
+                apiKey: API_KEY,
+                clientId: CLIENT_ID,
+                discoveryDocs: DISCOVERY_DOCS,
+                scope: SCOPES
+            }).then(function () {
+                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+                updateSigninStatus(gapi.auth2.getAuthInstance.isSignedIn().get());
+                authorizeButton.onclick = handleAuthClick;
+                signoutButton.onclick = handleSignoutClick;
+            }, function(error) {
+                appendPre(JSON.stringify(error, null, 2))
+            });
+        }
+
+        function updateSigninStatus(isSignedIn) {
+            if (isSignedin) {
+                authorizeButton.style.display = 'none';
+                signoutButton.style.display = 'block';
+                listFiles();
+            } else {
+                authorizeButton.style.display = 'block';
+                signoutButton.style.display = 'none';
+            }
+        }
+
+        function handleAuthClick(event) {
+            gapi.auth2.getAuthInstance().signIn();
+        }
+
+        function handleSignoutClick(event) {
+            gapi.auth2.getAuthInstance.signOut();
+        }
+
+        function appendPre(message) {
+            let pre = document.getElementById('content')
+            let textContent = document.createTextNode(message + '\n');
+            pre.appendChild(textContent)
+        }
+
+        function listFiles() {
+            gapi.client.drive.files.list({
+                'pageSize': 10,
+                'fields': 'nextPageToken, files(id, name)'
+            }).then(function(response) {
+                appendPre('Files:');
+                let files = response.result.files;
+                if (files && files.length > 0) {
+                for (let i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    appendPre(file.name + ' (' + file.id + ')');
+                }
+                } else {
+                appendPre('No files found');
+                }
+            });
+        }
+    </script>
+
+    <script async defer src='https://apis.google.com/js/api.js'
+        onload='this.onload=function(){};handleClientLoad()'
+        onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
 </body>
 </html>
