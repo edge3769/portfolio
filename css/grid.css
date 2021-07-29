@@ -1,10 +1,19 @@
 .grid {
   display: grid;
   gap: .1rem;
-  grid-template-rows: repeat(autofill, minmax(200px, 1fr));
-  grid-template-columns: masonry;
+  grid-template-rows: masonry;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .grid-item {
-  
+  margin: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.grid-item > img {
+  grid-row: 1 / -1;
+  grid-column: 1;
+  max-height: 100%;
+  display: block;
 }
